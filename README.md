@@ -5,6 +5,7 @@ Custom world animations for ExcellentCrates.
 - world_csgo
 
 # Commands:
-/reloadcrateanimations `crateanimations.reload` 
+/reloadcrateanimations `crateanimations.reload`
+
 Reloads the plugin and also rehooks the plugin in ExcellentCrates
 if you reloaded ExcellentCrates use this command to rehook!
