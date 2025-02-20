@@ -1,4 +1,4 @@
-package nl.astrosmp.crateAnimations.opening.test;
+package nl.astrosmp.crateAnimations.opening.csgo;
 
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -43,7 +43,7 @@ public class CustomOpening extends WorldOpening {
         this.spacing = spacing;
         this.displayname = displayname;
         this.itemDisplays = new ArrayList<>();
-        this.rewardPool = new ArrayList<>(this.crate.getRewards()); // Get all rewards from the crate
+        this.rewardPool = new ArrayList<>(this.crate.getRewards(player)); // Get available rewards for the player
     }
 
     private void onFirstTick() {

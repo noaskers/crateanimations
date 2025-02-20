@@ -1,6 +1,8 @@
 package nl.astrosmp.crateAnimations;
 
-import nl.astrosmp.crateAnimations.opening.test.CustomProvider;
+import nl.astrosmp.crateAnimations.commands.ReloadCommand;
+import nl.astrosmp.crateAnimations.listeners.PluginListener;
+import nl.astrosmp.crateAnimations.opening.csgo.CustomProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import su.nightexpress.excellentcrates.CratesPlugin;
 import su.nightexpress.excellentcrates.opening.OpeningManager;
@@ -15,17 +17,13 @@ public final class CrateAnimations extends JavaPlugin {
         configManager = new ConfigManager(this);
 
         // Plugin startup logic
-        CratesPlugin excellentCrates = (CratesPlugin) getServer().getPluginManager().getPlugin("ExcellentCrates");
-        if (excellentCrates == null) {
-            getLogger().severe("ExcellentCrates not found! This plugin requires ExcellentCrates to function.");
-            getServer().getPluginManager().disablePlugin(this);
-            return;
-        }
+        hookIntoExcellentCrates();
 
-        // Register the custom opening
-        OpeningManager openingManager = excellentCrates.getOpeningManager();
-        CustomProvider customProvider = new CustomProvider(excellentCrates, 10, 7L, 20L, configManager.getSpacing(), configManager.getDisplayname()); // Adjust parameters as needed
-        openingManager.loadProvider("custom_opening", customProvider);
+        // Register the reload command
+        this.getCommand("reloadcrateanimations").setExecutor(new ReloadCommand(this));
+
+        // Register the plugin listener
+        getServer().getPluginManager().registerEvents(new PluginListener(this), this);
 
         getLogger().info("Custom crate opening registered successfully!");
     }
@@ -37,5 +35,26 @@ public final class CrateAnimations extends JavaPlugin {
 
     public ConfigManager getConfigManager() {
         return configManager;
+    }
+
+    public void hookIntoExcellentCrates() {
+        CratesPlugin excellentCrates = (CratesPlugin) getServer().getPluginManager().getPlugin("ExcellentCrates");
+        if (excellentCrates == null) {
+            getLogger().severe("ExcellentCrates not found! This plugin requires ExcellentCrates to function.");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+
+        // Register the custom opening
+        OpeningManager openingManager = excellentCrates.getOpeningManager();
+        CustomProvider customProvider = new CustomProvider(
+                excellentCrates,
+                configManager.getStepsAmount(),
+                configManager.getStepsTick(),
+                configManager.getCompletePause(),
+                configManager.getSpacing(),
+                configManager.getDisplayname()
+        );
+        openingManager.loadProvider("world_csgo", customProvider);
     }
 }

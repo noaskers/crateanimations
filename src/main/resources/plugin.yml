@@ -4,3 +4,8 @@ main: nl.astrosmp.crateAnimations.CrateAnimations
 api-version: '1.21'
 authors: [ Sven, NoAskers ]
 softdepend: [ExcellentCrates]
+commands:
+  reloadcrateanimations:
+    description: Reloads the CrateAnimations configuration.
+    usage: /reloadcrateanimations
+    permission: crateanimations.reload

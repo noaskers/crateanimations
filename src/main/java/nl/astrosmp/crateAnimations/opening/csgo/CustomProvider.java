@@ -1,4 +1,4 @@
-package nl.astrosmp.crateAnimations.opening.test;
+package nl.astrosmp.crateAnimations.opening.csgo;
 
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;

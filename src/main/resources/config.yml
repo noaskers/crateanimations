@@ -1,3 +1,6 @@
-test:
+world_csgo:
   distance-between: 1.5
   display-name: true
+  steps-amount: 15
+  steps-tick: 3
+  complete-pause: 40
